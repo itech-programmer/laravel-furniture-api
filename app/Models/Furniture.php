@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Furniture extends Model
 {
-    use HasFactory;
+    protected $fillable = ['name', 'description', 'price', 'in_stock'];
 }
