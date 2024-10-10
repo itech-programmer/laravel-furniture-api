@@ -8,7 +8,7 @@
 
 ## Стек технологий
 
-- **Backend**: PHP, Laravel
+- **Backend**: PHP 8.x, Laravel 10
 - **Database**: MySQL
 - **Containers**: Docker, Docker Compose
 
@@ -91,3 +91,8 @@ make migrate
 
 1. Запуск тестов: `make test`
 
+## Документация API
+
+Документация API доступна через Swagger UI. Вы можете просмотреть её по следующему адресу:
+
+[Документация API](http://localhost:8000/api/documentation#/)
