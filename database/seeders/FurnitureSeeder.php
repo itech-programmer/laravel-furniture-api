@@ -13,7 +13,7 @@ class FurnitureSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('furnitures')->insert([
+        DB::table('furniture')->insert([
             [
                 'name' => 'Chair',
                 'description' => 'Comfortable wooden chair',

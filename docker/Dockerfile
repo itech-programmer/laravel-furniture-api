@@ -1,40 +1,42 @@
-# Используем официальный образ PHP 8.3
+# Используем PHP 8.3 + FPM
 FROM php:8.3-fpm
 
-# Установка необходимых PHP расширений и зависимостей
+# Установка необходимых пакетов и PHP-расширений
 RUN apt-get update && apt-get install -y \
-    build-essential \
+    nginx \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
-    locales \
+    libonig-dev \
+    libxml2-dev \
     zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
+    curl \
     unzip \
     git \
-    curl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_mysql gd
+    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
 
 # Установка Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Создаем директорию для приложения
+# Копируем файлы приложения в контейнер
 WORKDIR /var/www
-
-# Копируем файлы проекта в контейнер
 COPY . .
 
-# Устанавливаем зависимости Laravel
+# Установка зависимостей Laravel
 RUN composer install
 
-# Настройка прав доступа
+# Копируем файл конфигурации Nginx
+COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
+
+# Установка прав доступа для Laravel
 RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www
+    && chmod -R 755 /var/www \
+    && chmod -R 775 /var/www/storage \
+    && chmod -R 775 /var/www/bootstrap/cache
 
-# Копируем файл конфигурации PHP
-COPY ./docker/php/php.ini /usr/local/etc/php/
+# Открываем порт 80
+EXPOSE 80
 
-EXPOSE 9000
-CMD ["php-fpm"]
+# Запуск PHP-FPM и Nginx
+CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;'"]

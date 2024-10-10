@@ -1,0 +1,184 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Furniture API",
+        "description": "API for managing furniture items",
+        "contact": {
+            "email": "davron.obidzhonov@example.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/furniture": {
+            "get": {
+                "summary": "Get list of all furniture items",
+                "operationId": "42a6189b579674701247f9ce831195a2",
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "Optional filters",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of furniture items"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new furniture item",
+                "operationId": "b21bf9cb681d97c98dc121fe3a9a8d11",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Chair"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "A nice chair"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "example": 100
+                                    },
+                                    "in_stock": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Furniture item created"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/api/furniture/{id}": {
+            "get": {
+                "summary": "Get a single furniture item by ID",
+                "operationId": "19898408e6303de35280bb022a003ad8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the furniture item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Furniture item details"
+                    },
+                    "404": {
+                        "description": "Item not found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update an existing furniture item",
+                "operationId": "55715f75ba1f50c11d395287930cb82b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the furniture item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Chair Updated"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "An updated chair"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "example": 150
+                                    },
+                                    "in_stock": {
+                                        "type": "boolean",
+                                        "example": false
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Furniture item updated"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "404": {
+                        "description": "Item not found"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a furniture item",
+                "operationId": "2190d8ab4d7ef69c9e27a2d082849f12",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the furniture item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Furniture item deleted"
+                    },
+                    "404": {
+                        "description": "Item not found"
+                    }
+                }
+            }
+        }
+    }
+}

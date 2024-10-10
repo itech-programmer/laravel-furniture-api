@@ -2,46 +2,46 @@
 PROJECT_NAME=furniture-api
 
 # Команды для Docker Compose
-DC=docker-compose
-DC_EXEC_APP=$(DC) exec app
+furniture_app=docker-compose
+furniture_app_exec=$(furniture_app) exec app
 
 # Команды для работы с контейнерами
 up:
-	$(DC) up -d
+	$(furniture_app) up -d
 
 down:
-	$(DC) down
+	$(furniture_app) down
 
 restart:
-	$(DC) restart
+	$(furniture_app) restart
 
 build:
-	$(DC) build
+	$(furniture_app) build
 
 # Команды для Laravel
 migrate:
-	$(DC_EXEC_APP) php artisan migrate
+	$(furniture_app_exec) php artisan migrate
 
 seed:
-	$(DC_EXEC_APP) php artisan db:seed
+	$(furniture_app_exec) php artisan db:seed
 
 migrate-refresh:
-	$(DC_EXEC_APP) php artisan migrate:refresh --seed
+	$(furniture_app_exec) php artisan migrate:refresh --seed
 
 # Очистка кэша
 cache-clear:
-	$(DC_EXEC_APP) php artisan cache:clear
-	$(DC_EXEC_APP) php artisan config:clear
-	$(DC_EXEC_APP) php artisan route:clear
-	$(DC_EXEC_APP) php artisan view:clear
+	$(furniture_app_exec) php artisan cache:clear
+	$(furniture_app_exec) php artisan config:clear
+	$(furniture_app_exec) php artisan route:clear
+	$(furniture_app_exec) php artisan view:clear
 
 # Установка зависимостей
 composer-install:
-	$(DC_EXEC_APP) composer install
+	$(furniture_app_exec) composer install
 
 composer-update:
-	$(DC_EXEC_APP) composer update
+	$(furniture_app_exec) composer update
 
 # Тесты
 test:
-	$(DC_EXEC_APP) php artisan test
+	$(furniture_app_exec) php artisan test
